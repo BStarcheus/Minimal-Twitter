@@ -2,8 +2,28 @@ import twitter
 from flask import Flask, request
 import configparser
 from threading import Timer
+from datetime import datetime
 import requests
 import webbrowser
+
+
+def getScreenNames():
+    f = open('appdata', 'r')
+    f.readline()
+    text = f.readline()
+    names = []
+    while text and text != '\n':
+        names.append(text[:-1])
+        text = f.readline()
+    return names
+
+def getTweets(user):
+    results = api.GetUserTimeline(screen_name = user)
+    tweets = []
+    #for r in results:
+        #pass
+    return results
+
 
 
 VIEW_TIME = 600
@@ -21,10 +41,25 @@ api = twitter.Api(consumer_key=config['Default']['TWITTER_CONSUMER_KEY'],
               access_token_key=config['Default']['TWITTER_ACCESS_TOKEN_KEY'],
               access_token_secret=config['Default']['TWITTER_ACCESS_TOKEN_SECRET'])
 
+
+screenNames = getScreenNames()
+
+
+
+
+
 app = Flask(__name__)
 
 @app.route('/')
-def generateTweets():
+def createPage():
+    for name in screenNames:
+        tweets = getTweets(name)
+        print(tweets[0].text)
+
+    with open('appdata', 'r+') as f:
+        f.write(str(datetime.now()))
+        f.close()
+
     return "Hello There"
 
 @app.route('/shutdown', methods=['POST'])
@@ -43,6 +78,6 @@ def displayPage():
 
 
 if __name__ == "__main__":
-    Timer(VIEW_TIME, shutdown).start()
     Timer(1, displayPage).start()
-    app.run(debug=True)
+    Timer(VIEW_TIME, shutdown).start()
+    app.run(debug=True, use_reloader=False)
