@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Minimal Twitter</title>
+</head>
+<body>
+<h1>Minimal Twitter</h1>
+
+{% for user in users %}
+    <div>
+        {{user}}
+    </div>
+    {% for tweet in users[user] %}
+        <div>
+            {{ tweet.full_text }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
+</body>
+</html>
