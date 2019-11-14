@@ -10,14 +10,20 @@ import webbrowser
 def getScreenNames():
     '''Return the list of screen names the user wants to fetch tweets for
     '''
-    f = open('appdata', 'r')
-    f.readline()
-    text = f.readline()
-    names = []
-    while text and text != '\n':
-        names.append(text[:-1])
+    try:
+        f = open('appdata', 'r')
+        f.readline()
         text = f.readline()
-    return names
+        names = []
+        while text and text != '\n':
+            names.append(text[:-1])
+            text = f.readline()
+        f.close()
+        return names
+    except:
+        from setup import setupAppData
+        setupAppData()
+        return getScreenNames()
 
 def getTweets(user):
     '''Return a list of tweets created since the last run of this program
@@ -62,7 +68,6 @@ api = twitter.Api(consumer_key=config['Default']['TWITTER_CONSUMER_KEY'],
 
 
 screenNames = getScreenNames()
-
 
 
 
