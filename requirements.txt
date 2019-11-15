@@ -1,2 +1,2 @@
-flask
-python-twitter
+flask==1.1.1
+python-twitter==3.5

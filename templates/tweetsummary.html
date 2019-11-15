@@ -8,14 +8,19 @@
 <h1>Minimal Twitter</h1>
 
 {% for user in users %}
-    <div>
-        {{user}}
-    </div>
+    <div class='user'>
+    <h2 class='username'>{{user}}</h2>
     {% for tweet in users[user] %}
-        <div>
+        <div class='tweettext'>
             {{ tweet.full_text }}
         </div>
+        {% if tweet.media is defined and tweet.media != None %}
+        {% for img in tweet.media %}
+        <img class='tweetimg' src='{{ img.media_url_https }}' alt='Tweet Image'>
+        {% endfor %}
+        {% endif %}
     {% endfor %}
+    </div>
 {% endfor %}
 
 </body>
