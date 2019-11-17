@@ -94,7 +94,7 @@ def displayPage():
     webbrowser.open("http://localhost:5000")
 
 def onceADay():
-    '''Exit if the program has been run already today'''
+    '''Exit if the program has already been run today'''
     with open('appdata', 'r') as f:
         lastdate = datetime.strptime(f.readline()[:-1], "%Y-%m-%d %H:%M:%S.%f")
         f.close()
@@ -103,10 +103,9 @@ def onceADay():
         print("You already used Minimal Twitter today. Wait until tomorrow.")
         exit()
 
-VIEW_TIME = 600
 
 if __name__ == "__main__":
     onceADay()
     Timer(1, displayPage).start()
-    Timer(VIEW_TIME, shutdown).start()
+    Timer(5, shutdown).start()
     app.run(debug=False, use_reloader=False)
