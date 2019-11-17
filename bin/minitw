@@ -13,8 +13,9 @@ if [ ! -f "appdata" ]; then
     python3 setup.py
 fi
 
-if [[ $(python3 -c "from main import onceADay; onceADay()") ]]; then
-    echo "You already used Minimal Twitter today. Wait until tomorrow."
+temp=$(python3 -c "from main import onceADay; onceADay()")
+if [[ $temp ]]; then
+    echo $temp
 else
     nohup python3 main.py > /dev/null
 fi

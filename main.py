@@ -52,6 +52,10 @@ def getTweets(user):
 config = configparser.ConfigParser()
 config.read('keys.ini')
 
+if 'Default' not in config:
+    print("keys.ini file does not exist.")
+    exit()
+
 if len(config['Default']) != 4:
     print("Invalid keys.ini file. Must contain all 4 keys and secrets.")
     exit()
