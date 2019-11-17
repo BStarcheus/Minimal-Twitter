@@ -28,7 +28,6 @@ def getScreenNames():
 def getTweets(user):
     '''Return a list of tweets created since the last run of this program
     limited to 40 tweets per user'''
-
     results = api.GetUserTimeline(screen_name=user, count=40)
     tweets = []
     lastdate = ""
@@ -49,9 +48,6 @@ def getTweets(user):
     return tweets
 
 
-
-VIEW_TIME = 600
-
 # Get the Twitter API keys from keys.ini
 config = configparser.ConfigParser()
 config.read('keys.ini')
@@ -66,10 +62,7 @@ api = twitter.Api(consumer_key=config['Default']['TWITTER_CONSUMER_KEY'],
               access_token_secret=config['Default']['TWITTER_ACCESS_TOKEN_SECRET'],
               tweet_mode="extended")
 
-
 screenNames = getScreenNames()
-
-
 
 
 app = Flask(__name__)
@@ -81,7 +74,7 @@ def createPage():
         users[name] = getTweets(name)
 
     with open('appdata', 'r+') as f:
-        f.write(str(datetime.utcnow()))
+        f.write(str(datetime.now()))
         f.close()
 
     return render_template('tweetsummary.html', users=users)
@@ -100,8 +93,20 @@ def shutdown():
 def displayPage():
     webbrowser.open("http://localhost:5000")
 
+def onceADay():
+    '''Exit if the program has been run already today'''
+    with open('appdata', 'r') as f:
+        lastdate = datetime.strptime(f.readline()[:-1], "%Y-%m-%d %H:%M:%S.%f")
+        f.close()
+    currdate = datetime.now()
+    if lastdate.date() == currdate.date():
+        print("You already used Minimal Twitter today. Wait until tomorrow.")
+        exit()
+
+VIEW_TIME = 600
 
 if __name__ == "__main__":
+    onceADay()
     Timer(1, displayPage).start()
     Timer(VIEW_TIME, shutdown).start()
-    app.run(debug=True, use_reloader=False)
+    app.run(debug=False, use_reloader=False)

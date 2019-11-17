@@ -1,6 +1,5 @@
 from datetime import datetime, timedelta
 
-
 def setupAppData():
     '''Get new users to follow and initialize the file'''
     print("Welcome to Minimal Twitter!")
@@ -12,7 +11,7 @@ def setupAppData():
     inp = input("Enter username: ")
     f = open('appdata', 'w')
 
-    twodaysago = str(datetime.utcnow() - timedelta(days=2))
+    twodaysago = str(datetime.now() - timedelta(days=2))
     f.write(twodaysago + '\n')
 
     while i < 8 and inp != '#':

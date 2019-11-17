@@ -1,4 +1,33 @@
-h1 {
-    font-family: Arial;
+body {
     text-align: center;
+    font-family: Arial;
+    background-color: rgb(150, 150, 150);
+}
+h1 {
+    margin-bottom: 10px;
+}
+.user {
+    margin: 40px auto;
+    max-width: 1300px;
+}
+.username {
+    margin: 10px;
+}
+.tweet {
+    padding: 20px 5px;
+    background-color: rgb(210, 210, 210);
+    border-bottom: 2px solid black;
+}
+.tweetimg {
+    max-width: 400px;
+    max-height: 400px;
+    margin: 10px auto;
+    display: inline-block;
+}
+.tweettext {
+    text-align: left;
+    padding: 10px;
+    margin: auto;
+    max-width: 750px;
+    width: auto;
 }
