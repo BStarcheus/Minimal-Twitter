@@ -111,5 +111,5 @@ def onceADay():
 if __name__ == "__main__":
     onceADay()
     Timer(1, displayPage).start()
-    Timer(5, shutdown).start()
+    Timer(10, shutdown).start()
     app.run(debug=False, use_reloader=False)
