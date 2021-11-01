@@ -92,10 +92,10 @@ def shutdown_server():
     return "Shutting down."
 
 def shutdown():
-    requests.post("http://localhost:5000/shutdown")
+    requests.post("http://127.0.0.1:5000/shutdown")
 
 def displayPage():
-    webbrowser.open("http://localhost:5000")
+    webbrowser.open("http://127.0.0.1:5000")
 
 def onceADay():
     '''Exit if the program has already been run today'''
